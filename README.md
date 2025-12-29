@@ -60,6 +60,23 @@ pytest
 uvicorn src.api.main:app --reload
 ```
 
+### 🎓 Interactive Learning Tool
+
+**New to AgentFlow?** Start with our interactive tutorial!
+
+```bash
+# Run the interactive learning script
+python learn.py
+```
+
+This will:
+- Create a sample workspace with code issues
+- Guide you through each agent step-by-step
+- Show real-time results and explanations
+- Let you reset and repeat as many times as needed
+
+See [docs/learning-tool.md](docs/learning-tool.md) for details.
+
 ### Docker
 
 ```bash
@@ -69,45 +86,83 @@ docker run -p 8000:8000 agentflow
 
 ## 📖 Usage Examples
 
-### Analyze a Codebase
+### 1. Interactive Learning (Recommended for Beginners)
 
-```python
-from src.agents.code_analyzer import CodeAnalyzerAgent
-
-agent = CodeAnalyzerAgent()
-results = await agent.analyze_codebase("/path/to/repo")
-print(results.summary)
+```bash
+# Start the interactive tutorial
+python learn.py
 ```
 
-### Automated PR Review
+### 2. Quick Demo
+
+```bash
+# Run all agents on the current project
+python demo.py
+```
+
+### 3. Direct Agent Usage
+
+```python
+import asyncio
+from pathlib import Path
+from src.agents.code_analyzer import CodeAnalyzerAgent
+from src.agents.base import AgentContext
+
+async def analyze():
+    agent = CodeAnalyzerAgent()
+    context = AgentContext(
+        task_id="my-analysis",
+        workspace_path=str(Path.cwd())
+    )
+    result = await agent.run(context)
+    print(result.data["summary"])
+
+asyncio.run(analyze())
+```
+
+### 4. Orchestrated Workflow
 
 ```python
 from src.agents.orchestrator import OrchestratorAgent
+from src.agents.code_analyzer import CodeAnalyzerAgent
+from src.agents.builder import BuilderAgent
 
+# Create and configure orchestrator
 orchestrator = OrchestratorAgent()
-await orchestrator.review_pull_request(
-    owner="user",
-    repo="project",
-    pr_number=123
+orchestrator.register_agent(CodeAnalyzerAgent())
+orchestrator.register_agent(BuilderAgent())
+
+# Run code review workflow
+context = AgentContext(
+    task_id="code-review",
+    workspace_path="./my-project",
+    config={"workflow_type": "code_review"}
 )
+result = await orchestrator.run(context)
+print(result.data["summary"])
 ```
 
-### API Usage
+### 5. API Usage
 
 ```bash
 # Health check
 curl http://localhost:8000/health
 
 # Analyze code
-curl -X POST http://localhost:8000/api/v1/analyze \
+curl -X POST http://localhost:8000/api/v1/analysis/code \
   -H "Content-Type: application/json" \
-  -d '{"path": "/path/to/repo"}'
+  -d '{"workspace_path": "/path/to/repo"}'
 
-# Review PR
-curl -X POST http://localhost:8000/api/v1/github/review-pr \
+# Execute workflow
+curl -X POST http://localhost:8000/api/v1/workflows/execute \
   -H "Content-Type: application/json" \
-  -d '{"owner": "user", "repo": "project", "pr_number": 123}'
+  -d '{
+    "workflow_type": "code_review",
+    "workspace_path": "/path/to/repo"
+  }'
 ```
+
+For more examples, see [QUICKSTART.md](QUICKSTART.md)
 
 ## 🏗️ Architecture
 
@@ -151,26 +206,34 @@ pytest tests/integration/
 
 ## 📚 Documentation
 
-- [Architecture Overview](docs/architecture.md)
-- [Agent Design](docs/agents.md)
-- [API Documentation](docs/api.md)
-- [Development Guide](docs/development.md)
+- [Architecture Overview](docs/architecture.md) - System design and patterns
+- [API Documentation](docs/api.md) - REST API reference
+- [Learning Tool](docs/learning-tool.md) - Interactive tutorial guide
+- [Quick Start](QUICKSTART.md) - Installation and first steps
 
 ## 🎪 Demo Scenarios
 
-### 1. Intelligent Code Review
+### 1. Interactive Learning (Best for First-Time Users)
 ```bash
-python -m src.cli analyze --repo /path/to/repo --full-report
+python learn.py
+# Interactive step-by-step tutorial with sample workspace
 ```
 
-### 2. PR Preparation
+### 2. Quick Demo on Current Project
 ```bash
-python -m src.cli github review-pr --owner user --repo project --pr 123
+python demo.py
+# Runs all agents on the agentflow project itself
 ```
 
-### 3. Dependency Audit
+### 3. Code Review Workflow
 ```bash
-python -m src.cli audit --check-security --check-updates
+# Start API server
+uvicorn src.api.main:app --reload
+
+# In another terminal
+curl -X POST http://localhost:8000/api/v1/workflows/execute \
+  -H "Content-Type: application/json" \
+  -d '{"workflow_type": "code_review", "workspace_path": "."}'
 ```
 
 ## 🛠️ Development
