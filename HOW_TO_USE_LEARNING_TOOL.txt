@@ -1,0 +1,231 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║            🎓 HOW TO USE THE AGENTFLOW LEARNING TOOL                         ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+QUICK START
+═══════════════════════════════════════════════════════════════════════════════
+
+1. Navigate to the agentflow directory:
+   
+   cd agentflow
+
+2. Make sure dependencies are installed:
+   
+   pip install -e ".[dev]"
+
+3. Run the interactive learning script:
+   
+   python learn.py
+
+4. Follow the on-screen instructions and press Enter to advance through steps
+
+5. At the end, choose:
+   • 1 = Run tutorial again (auto-resets workspace)
+   • 2 = Reset workspace only
+   • 3 = Clean up and exit
+
+WHAT HAPPENS
+═══════════════════════════════════════════════════════════════════════════════
+
+The script will:
+
+✓ Create a sample workspace (learning_workspace/) with:
+  - Python files containing intentional issues
+  - TODOs and FIXMEs to find
+  - Security issues (hardcoded secrets, unsafe eval)
+  - Basic tests
+  - Project configuration
+
+✓ Guide you through 4 steps:
+  - Step 0: Setup and workspace overview
+  - Step 1: Code Analyzer Agent demo
+  - Step 2: Builder Agent demo  
+  - Step 3: Orchestrator demo
+  - Step 4: API usage examples
+
+✓ Show real results from analyzing the sample code
+
+✓ Explain what each agent does and how to use it
+
+✓ Clean up automatically when done
+
+SAMPLE WORKSPACE STRUCTURE
+═══════════════════════════════════════════════════════════════════════════════
+
+learning_workspace/
+├── src/
+│   ├── main.py      ← Has intentional issues:
+│   │                  • TODO comments (3)
+│   │                  • Hardcoded password
+│   │                  • Hardcoded API key
+│   │                  • Unsafe eval() usage
+│   └── utils.py     ← Clean code
+├── tests/
+│   └── test_main.py ← Sample tests
+├── docs/
+│   └── README.md    ← Sample docs with TODOs
+└── pyproject.toml   ← Project config
+
+FEATURES
+═══════════════════════════════════════════════════════════════════════════════
+
+• Interactive Prompts: Advance at your own pace
+• Colorful Output: Easy to read with ANSI colors
+• Reset Capability: Run as many times as you want
+• Auto-Cleanup: Removes workspace when done
+• Error Handling: Ctrl+C cleans up automatically
+• Safe Learning: No impact on real code
+
+TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════════════════════
+
+Problem: "Please run this script from the agentflow directory!"
+Solution: Make sure you're in the agentflow directory:
+          cd /path/to/agentflow
+          python learn.py
+
+Problem: Import errors
+Solution: Install dependencies:
+          pip install -e ".[dev]"
+
+Problem: Workspace already exists
+Solution: The script handles this automatically. Or manually:
+          rm -rf learning_workspace
+
+Problem: Colors not showing
+Solution: Use a modern terminal (Windows Terminal, iTerm2, etc.)
+          Script works fine without colors too!
+
+MANUAL OPERATIONS
+═══════════════════════════════════════════════════════════════════════════════
+
+If you want to manually manage the workspace:
+
+# Create workspace
+python -c "
+from pathlib import Path
+from learn import LearningWorkspace
+workspace = LearningWorkspace(Path('./learning_workspace'))
+workspace.create()
+"
+
+# Reset workspace
+python -c "
+from pathlib import Path
+from learn import LearningWorkspace
+workspace = LearningWorkspace(Path('./learning_workspace'))
+workspace.reset()
+"
+
+# Clean up workspace
+python -c "
+from pathlib import Path
+from learn import LearningWorkspace
+workspace = LearningWorkspace(Path('./learning_workspace'))
+workspace.cleanup()
+"
+
+Or just delete the directory:
+rm -rf learning_workspace
+
+AFTER THE TUTORIAL
+═══════════════════════════════════════════════════════════════════════════════
+
+Once you've completed the tutorial, try:
+
+1. Run agents on your own code:
+   
+   python -c "
+   import asyncio
+   from src.agents.code_analyzer import CodeAnalyzerAgent
+   from src.agents.base import AgentContext
+   
+   async def analyze():
+       agent = CodeAnalyzerAgent()
+       context = AgentContext('my-task', '/path/to/your/project')
+       result = await agent.run(context)
+       print(result.data['summary'])
+   
+   asyncio.run(analyze())
+   "
+
+2. Start the API server:
+   
+   uvicorn src.api.main:app --reload
+   # Visit http://localhost:8000/docs
+
+3. Run the quick demo:
+   
+   python demo.py
+
+4. Read the documentation:
+   
+   • docs/architecture.md  - System design
+   • docs/api.md          - API reference
+   • docs/learning-tool.md - Full learning guide
+
+FOR MORE HELP
+═══════════════════════════════════════════════════════════════════════════════
+
+• Full Learning Guide: docs/learning-tool.md
+• Quick Start: QUICKSTART.md
+• README: README.md
+• Architecture: docs/architecture.md
+
+EXAMPLE SESSION
+═══════════════════════════════════════════════════════════════════════════════
+
+$ cd agentflow
+$ python learn.py
+
+🎓 AgentFlow Interactive Learning Tutorial
+═══════════════════════════════════════════
+
+Welcome to the AgentFlow Learning Tool!
+...
+
+Step 0: Setting Up Learning Environment
+────────────────────────────────────────────
+ℹ  First, we need to create a sample workspace...
+
+▶ Press Enter to continue...
+
+✓ Sample workspace created at: ./learning_workspace
+
+Step 1: Using the Code Analyzer Agent
+────────────────────────────────────────────
+ℹ  The Code Analyzer Agent scans your code for:
+  • TODO, FIXME, HACK comments
+  • Security issues
+  • Code statistics
+
+▶ Let's run the Code Analyzer...
+
+Running Code Analyzer...
+
+✓ Analysis complete!
+
+📝 TODOs Found (5):
+  1. TODO: Implement proper error handling
+     File: src/main.py:4
+...
+
+[Tutorial continues through all steps]
+
+🎉 Tutorial Complete!
+
+Would you like to:
+  1. Run the tutorial again
+  2. Reset the workspace
+  3. Clean up and exit
+
+Enter choice (1/2/3): 3
+
+✓ Thanks for learning with AgentFlow! 🚀
+
+═══════════════════════════════════════════════════════════════════════════════
+
+Happy Learning! 🎓
+
