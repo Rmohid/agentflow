@@ -39,6 +39,9 @@ class AgentResult(BaseModel):
     execution_time_ms: int = 0
     timestamp: datetime = Field(default_factory=datetime.utcnow)
     metadata: Dict[str, Any] = Field(default_factory=dict)
+    # SDD Phase awareness
+    phase: Optional[str] = None
+    artifacts_produced: List[str] = Field(default_factory=list)
 
     def is_success(self) -> bool:
         """Check if execution was successful"""
@@ -65,6 +68,9 @@ class AgentContext:
     config: Dict[str, Any] = field(default_factory=dict)
     shared_data: Dict[str, Any] = field(default_factory=dict)
     parent_agent: Optional[str] = None
+    # SDD Phase awareness
+    current_phase: Optional[str] = None
+    project_id: Optional[str] = None
 
 
 class BaseAgent(ABC):

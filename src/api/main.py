@@ -7,7 +7,7 @@ from fastapi.responses import JSONResponse
 
 from src.utils.config import get_settings
 from src.utils.logging import setup_logging, get_logger
-from src.api.routes import health, workflows, analysis
+from src.api.routes import health, workflows, analysis, phases
 
 settings = get_settings()
 logger = get_logger(__name__)
@@ -34,7 +34,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title=settings.app_name,
     version=settings.app_version,
-    description="AI-Powered Development Workflow Orchestrator",
+    description="AI-Powered Development Workflow Orchestrator - Built with Specification-Driven Development (SDD)",
     lifespan=lifespan,
     docs_url="/docs",
     redoc_url="/redoc",
@@ -53,6 +53,7 @@ if settings.cors_enabled:
 
 # Include routers
 app.include_router(health.router, tags=["Health"])
+app.include_router(phases.router, tags=["SDD Phases"])  # New SDD phase routes
 app.include_router(workflows.router, prefix="/api/v1/workflows", tags=["Workflows"])
 app.include_router(analysis.router, prefix="/api/v1/analysis", tags=["Analysis"])
 

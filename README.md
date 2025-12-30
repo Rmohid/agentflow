@@ -2,29 +2,45 @@
 
 **AI-Powered Development Workflow Orchestrator**
 
-A production-ready demonstration of agentic AI systems using GitHub Copilot's toolset to autonomously handle real-world development tasks.
+A production-ready demonstration of **Specification-Driven Development (SDD)** using GitHub's Spec Kit methodology, showcasing how agentic AI systems can be built with structured, documented specifications at their core.
 
 ---
 
 ## 🎯 What is AgentFlow?
 
-AgentFlow showcases how AI agents can collaborate to automate complex development workflows using the same tools available to GitHub Copilot:
+AgentFlow demonstrates two key concepts:
 
-- **File Operations**: Read, analyze, and modify code
-- **Shell Commands**: Build, test, and deploy applications
-- **GitHub APIs**: Manage issues, PRs, and workflows
-- **Web Search**: Research best practices and solutions
+### 1. Specification-Driven Development (SDD)
+This project itself was built using SDD - a structured workflow where **specifications are the central artifact**:
+
+```
+┌─────────┐    ┌─────────┐    ┌─────────┐    ┌───────────┐
+│ SPECIFY │ →  │  PLAN   │ →  │  TASKS  │ →  │ IMPLEMENT │
+└─────────┘    └─────────┘    └─────────┘    └───────────┘
+```
+
+Explore the `.spec/` directory to see how this project evolved from requirements to code:
+- [`.spec/specification.md`](.spec/specification.md) - What we're building
+- [`.spec/plan.md`](.spec/plan.md) - How we're building it
+- [`.spec/tasks.md`](.spec/tasks.md) - Work breakdown
+- [`.spec/implementation.md`](.spec/implementation.md) - Implementation log
+
+### 2. Multi-Agent AI Architecture
+AgentFlow showcases how AI agents can collaborate to automate complex development workflows:
+
+- **Code Analyzer Agent**: Scans codebases for patterns, issues, and improvements
+- **Builder Agent**: Runs tests, linters, and builds
+- **Orchestrator Agent**: Coordinates agent collaboration
 
 ## ✨ Features
 
-### Multi-Agent Architecture
-- **Code Analyzer Agent**: Scans codebases for patterns, issues, and improvements
-- **Builder Agent**: Runs tests, linters, and builds
-- **GitHub Agent**: Manages GitHub resources (PRs, issues, workflows)
-- **Research Agent**: Finds solutions and best practices
-- **Orchestrator Agent**: Coordinates agent collaboration
+### SDD Workflow (Spec Kit)
+- ✅ Four-phase gated workflow (Specify → Plan → Tasks → Implement)
+- ✅ Phase validation gates
+- ✅ Living specification documents in `.spec/`
+- ✅ Traceability from requirements to code
 
-### Production-Ready
+### Multi-Agent Architecture
 - ✅ REST API with FastAPI
 - ✅ Comprehensive test suite (>80% coverage)
 - ✅ CI/CD with GitHub Actions
@@ -142,7 +158,32 @@ result = await orchestrator.run(context)
 print(result.data["summary"])
 ```
 
-### 5. API Usage
+### 5. SDD Phase API (New!)
+
+```bash
+# Create an SDD project
+curl -X POST http://localhost:8000/api/v1/project/create \
+  -H "Content-Type: application/json" \
+  -d '{"project_id": "my-project", "project_name": "My SDD Project"}'
+
+# Complete specification phase
+curl -X POST http://localhost:8000/api/v1/phases/specify \
+  -H "Content-Type: application/json" \
+  -d '{
+    "project_id": "my-project",
+    "specification": {"title": "My App", "description": "..."}
+  }'
+
+# Move through phases: plan → tasks → implement
+curl -X POST http://localhost:8000/api/v1/phases/plan \
+  -H "Content-Type: application/json" \
+  -d '{"project_id": "my-project", "plan": {"architecture": "layered"}}'
+
+# Check project status
+curl http://localhost:8000/api/v1/project/my-project/status
+```
+
+### 6. API Usage
 
 ```bash
 # Health check
@@ -166,24 +207,31 @@ For more examples, see [QUICKSTART.md](QUICKSTART.md)
 
 ## 🏗️ Architecture
 
+### SDD Phase Flow
 ```
-┌─────────────┐
-│ Orchestrator│  ← Coordinates agent workflow
-└──────┬──────┘
-       │
-       ├──────┬──────┬──────┬──────┐
-       ▼      ▼      ▼      ▼      ▼
-    ┌────┐ ┌────┐ ┌────┐ ┌────┐ ┌────┐
-    │Code│ │Build│ │Git │ │Res │ │API │
-    │Anlz│ │ er │ │Hub │ │earch│ │Svc │
-    └────┘ └────┘ └────┘ └────┘ └────┘
-       │      │      │      │      │
-       └──────┴──────┴──────┴──────┘
-                    ▼
-              ┌────────────┐
-              │Task Queue  │
-              │& State Mgmt│
-              └────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                      SDD Phases                             │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────────┐   │
+│  │ SPECIFY  │→│  PLAN    │→│  TASKS   │→│  IMPLEMENT   │   │
+│  │ .spec/   │ │ .spec/   │ │ .spec/   │ │  src/        │   │
+│  │ spec.md  │ │ plan.md  │ │ tasks.md │ │  code        │   │
+│  └──────────┘ └──────────┘ └──────────┘ └──────────────┘   │
+│                    (Gated Transitions)                      │
+└─────────────────────────────────────────────────────────────┘
+                              │
+┌─────────────────────────────────────────────────────────────┐
+│                    Agent Layer                              │
+│  ┌─────────────┐ ┌─────────────┐ ┌─────────────────────┐   │
+│  │ CodeAnalyzer│ │   Builder   │ │    Orchestrator     │   │
+│  └─────────────┘ └─────────────┘ └─────────────────────┘   │
+└─────────────────────────────────────────────────────────────┘
+                              │
+┌─────────────────────────────────────────────────────────────┐
+│                    Core Layer                               │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────────┐   │
+│  │  Phases  │ │  Tools   │ │  State   │ │    Tasks     │   │
+│  └──────────┘ └──────────┘ └──────────┘ └──────────────┘   │
+└─────────────────────────────────────────────────────────────┘
 ```
 
 See [docs/architecture.md](docs/architecture.md) for detailed design.
@@ -206,6 +254,7 @@ pytest tests/integration/
 
 ## 📚 Documentation
 
+- [**SDD Guide**](docs/sdd-guide.md) - Learn Specification-Driven Development
 - [Architecture Overview](docs/architecture.md) - System design and patterns
 - [API Documentation](docs/api.md) - REST API reference
 - [Learning Tool](docs/learning-tool.md) - Interactive tutorial guide
@@ -259,10 +308,15 @@ mypy src/
 
 ```
 agentflow/
+├── .spec/               # SDD Specification Artifacts
+│   ├── specification.md # Requirements & user stories
+│   ├── plan.md         # Architecture & tech decisions
+│   ├── tasks.md        # Work breakdown
+│   └── implementation.md # Implementation log
 ├── src/
 │   ├── agents/          # Agent implementations
 │   ├── api/             # FastAPI application
-│   ├── core/            # Core functionality
+│   ├── core/            # Core functionality (phases, state, tools)
 │   └── utils/           # Utilities
 ├── tests/               # Test suite
 ├── docs/                # Documentation
@@ -279,11 +333,12 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ## 🙏 Acknowledgments
 
-Built to demonstrate agentic AI patterns using:
-- GitHub Copilot's tool ecosystem
-- Modern Python async patterns
-- Production-ready software practices
+Built to demonstrate:
+- **GitHub Spec Kit** - Specification-Driven Development methodology
+- **Agentic AI patterns** - Multi-agent orchestration
+- **Modern Python** - Async patterns, type hints, Pydantic
+- **Production practices** - Testing, CI/CD, Docker
 
 ---
 
-**Built with ❤️ as a demonstration of production-ready agentic AI systems**
+**Built with ❤️ as a demonstration of Specification-Driven Development with agentic AI**
