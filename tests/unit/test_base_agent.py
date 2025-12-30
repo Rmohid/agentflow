@@ -39,7 +39,7 @@ async def test_agent_success(sample_context):
     assert result.is_success()
     assert result.agent_name == "test_agent"
     assert result.data["test"] == "data"
-    assert result.execution_time_ms > 0
+    assert result.execution_time_ms >= 0  # Could be 0 for very fast execution
 
 
 @pytest.mark.asyncio
