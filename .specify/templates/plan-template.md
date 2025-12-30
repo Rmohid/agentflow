@@ -1,109 +1,104 @@
-# Feature Plan
+# Implementation Plan: [FEATURE]
 
-## Metadata
+**Branch**: `[###-feature-name]` | **Date**: [DATE] | **Spec**: [link]
+**Input**: Feature specification from `/specs/[###-feature-name]/spec.md`
 
-```
-PLAN_ID: [XXX-feature-name]
-SPEC_REF: [Link to specification]
-VERSION: v1.0.0
-STATUS: [Draft | In Review | Approved]
-CREATED: [YYYY-MM-DD]
-AUTHOR: [Name]
-```
+**Note**: This template is filled in by the `/speckit.plan` command. See `.specify/templates/commands/plan.md` for the execution workflow.
 
-## Architecture Overview
+## Summary
 
-[High-level description of how this feature fits into the system]
+[Extract from feature spec: primary requirement + technical approach from research]
 
-### Component Diagram
+## Technical Context
 
-```
-[ASCII or description of component relationships]
-```
+<!--
+  ACTION REQUIRED: Replace the content in this section with the technical details
+  for the project. The structure here is presented in advisory capacity to guide
+  the iteration process.
+-->
 
-## Technical Approach
+**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
+**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
+**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
+**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
+**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
+**Project Type**: [single/web/mobile - determines source structure]  
+**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
+**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
+**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
 
-### Option 1: [Name]
-**Description:** [How this approach works]
+## Constitution Check
 
-**Pros:**
-- Pro 1
-- Pro 2
+*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-**Cons:**
-- Con 1
-- Con 2
+[Gates determined based on constitution file]
 
-### Option 2: [Name]
-**Description:** [How this approach works]
+## Project Structure
 
-**Pros:**
-- Pro 1
+### Documentation (this feature)
 
-**Cons:**
-- Con 1
-
-### Selected Approach
-[Which option and why]
-
-## Design Details
-
-### Data Models
-
-```python
-class ExampleModel(BaseModel):
-    field1: str
-    field2: int
+```text
+specs/[###-feature]/
+├── plan.md              # This file (/speckit.plan command output)
+├── research.md          # Phase 0 output (/speckit.plan command)
+├── data-model.md        # Phase 1 output (/speckit.plan command)
+├── quickstart.md        # Phase 1 output (/speckit.plan command)
+├── contracts/           # Phase 1 output (/speckit.plan command)
+└── tasks.md             # Phase 2 output (/speckit.tasks command - NOT created by /speckit.plan)
 ```
 
-### API Changes
+### Source Code (repository root)
+<!--
+  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
+  for this feature. Delete unused options and expand the chosen structure with
+  real paths (e.g., apps/admin, packages/something). The delivered plan must
+  not include Option labels.
+-->
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | /api/v1/example | Creates example |
-| GET | /api/v1/example/{id} | Gets example |
+```text
+# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
+src/
+├── models/
+├── services/
+├── cli/
+└── lib/
 
-### File Changes
+tests/
+├── contract/
+├── integration/
+└── unit/
 
-| File | Change Type | Description |
-|------|-------------|-------------|
-| src/example.py | New | New module |
-| src/api/routes/example.py | New | API routes |
+# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
+backend/
+├── src/
+│   ├── models/
+│   ├── services/
+│   └── api/
+└── tests/
 
-## Security Considerations
+frontend/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   └── services/
+└── tests/
 
-- [Security consideration 1]
-- [Security consideration 2]
+# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
+api/
+└── [same as backend above]
 
-## Testing Strategy
+ios/ or android/
+└── [platform-specific structure: feature modules, UI flows, platform tests]
+```
 
-| Test Type | Scope | Description |
-|-----------|-------|-------------|
-| Unit | ExampleClass | Test core logic |
-| Integration | API | Test endpoints |
+**Structure Decision**: [Document the selected structure and reference the real
+directories captured above]
 
-## Migration Plan
+## Complexity Tracking
 
-[If applicable, how to migrate existing data/users]
+> **Fill ONLY if Constitution Check has violations that must be justified**
 
-## Rollback Plan
-
-[How to revert if something goes wrong]
-
-## Dependencies
-
-- [External library or service]
-
-## Risks
-
-| Risk | Likelihood | Impact | Mitigation |
-|------|------------|--------|------------|
-| [Risk 1] | Medium | High | [Mitigation] |
-
----
-
-## Change Log
-
-| Version | Date | Author | Changes |
-|---------|------|--------|---------|
-| v1.0.0 | YYYY-MM-DD | [Name] | Initial plan |
+| Violation | Why Needed | Simpler Alternative Rejected Because |
+|-----------|------------|-------------------------------------|
+| [e.g., 4th project] | [current need] | [why 3 projects insufficient] |
+| [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient] |

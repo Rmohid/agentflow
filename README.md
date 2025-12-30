@@ -69,11 +69,29 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 # Install dependencies
 pip install -e ".[dev]"
 
+# Install Spec Kit CLI (for spec-driven development)
+uv tool install specify-cli --from git+https://github.com/github/spec-kit.git
+
+# Verify Spec Kit installation
+specify check
+
 # Run tests
 pytest
 
 # Start the API server
 uvicorn src.api.main:app --reload
+```
+
+### 📋 Spec Kit Commands
+
+This project was initialized with GitHub Spec Kit. Use these slash commands with your AI agent:
+
+```bash
+/speckit.constitution  # Review/update project principles
+/speckit.specify       # Create feature specifications
+/speckit.plan          # Create implementation plans
+/speckit.tasks         # Generate task breakdowns
+/speckit.implement     # Execute implementation
 ```
 
 ### 🎓 Interactive Learning Tool
