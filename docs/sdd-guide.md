@@ -8,6 +8,55 @@ SDD is a structured approach where **specifications are the central artifact** t
 
 ---
 
+## The Spec Kit Directory Structure
+
+AgentFlow follows the standard Spec Kit `.specify/` structure:
+
+```
+.specify/
+├── memory/                      # Cross-cutting context
+│   ├── constitution.md          # Project principles (Nine Articles)
+│   └── project-context.md       # Technical context
+├── templates/                   # Reusable templates
+│   ├── spec-template.md
+│   ├── plan-template.md
+│   └── tasks-template.md
+├── scripts/                     # Automation
+│   ├── create-feature.sh
+│   └── check-prerequisites.sh
+└── specs/                       # Feature specifications
+    └── 000-initial-implementation/
+        ├── spec.md              # What to build
+        ├── plan.md              # How to build
+        └── tasks.md             # Work breakdown
+```
+
+---
+
+## The Constitution
+
+The **constitution** (`.specify/memory/constitution.md`) is the immutable source of truth for your project. It defines:
+
+- **Nine Articles**: Core principles all development must follow
+- **Governance**: How to amend and version the constitution
+- **Compliance**: How principles are enforced
+
+### The Nine Articles (Summary)
+
+| Article | Principle |
+|---------|-----------|
+| I | Specification-First |
+| II | Phase-Gated Development |
+| III | Test-First Implementation |
+| IV | Agent Modularity |
+| V | Async-First Architecture |
+| VI | Type Safety |
+| VII | Simplicity Gate |
+| VIII | Anti-Abstraction Gate |
+| IX | Documentation-as-Code |
+
+---
+
 ## The Four Phases
 
 SDD follows a gated workflow with four distinct phases:
@@ -25,7 +74,7 @@ SDD follows a gated workflow with four distinct phases:
 
 **Goal:** Define *what* to build in plain language.
 
-**Artifacts:** `.spec/specification.md`
+**Artifacts:** `.specify/specs/XXX-feature/spec.md`
 
 **Contains:**
 - Problem statement
@@ -52,7 +101,7 @@ SDD follows a gated workflow with four distinct phases:
 
 **Goal:** Define *how* to build it.
 
-**Artifacts:** `.spec/plan.md`
+**Artifacts:** `.specify/specs/XXX-feature/plan.md`
 
 **Contains:**
 - High-level architecture
@@ -78,7 +127,7 @@ SDD follows a gated workflow with four distinct phases:
 
 **Goal:** Break the plan into actionable work units.
 
-**Artifacts:** `.spec/tasks.md`
+**Artifacts:** `.specify/specs/XXX-feature/tasks.md`
 
 **Contains:**
 - Epics (major feature areas)
@@ -107,33 +156,36 @@ SDD follows a gated workflow with four distinct phases:
 
 **Goal:** Execute tasks and validate against specifications.
 
-**Artifacts:** `.spec/implementation.md` + actual code
+**Artifacts:** Actual code + updated task status
 
 **Contains:**
-- Session logs
-- Key decisions made during implementation
-- Deviations from plan
-- Lessons learned
-- Metrics
+- Working code that meets acceptance criteria
+- Tests that validate requirements
+- Updated documentation
 
 ---
 
-## Navigating the `.spec/` Directory
+## Navigating the `.specify/` Directory
 
 ```
-.spec/
-├── specification.md   # Start here - understand the "what"
-├── plan.md           # Next - understand the "how"
-├── tasks.md          # Then - see the work breakdown
-└── implementation.md # Finally - track progress and decisions
+.specify/
+├── memory/
+│   ├── constitution.md    # Start here - project principles
+│   └── project-context.md # Technical context
+├── templates/             # Use these for new features
+└── specs/
+    └── 000-feature/
+        ├── spec.md        # What to build
+        ├── plan.md        # How to build
+        └── tasks.md       # Work breakdown
 ```
 
 ### Reading Order for New Contributors
 
-1. **specification.md** - Understand the problem and requirements
-2. **plan.md** - Understand technical decisions
-3. **tasks.md** - See what's done and what's remaining
-4. **implementation.md** - Understand why things were done a certain way
+1. **constitution.md** - Understand project principles
+2. **spec.md** - Understand the problem and requirements
+3. **plan.md** - Understand technical decisions
+4. **tasks.md** - See what's done and what's remaining
 
 ---
 

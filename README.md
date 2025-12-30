@@ -19,11 +19,11 @@ This project itself was built using SDD - a structured workflow where **specific
 └─────────┘    └─────────┘    └─────────┘    └───────────┘
 ```
 
-Explore the `.spec/` directory to see how this project evolved from requirements to code:
-- [`.spec/specification.md`](.spec/specification.md) - What we're building
-- [`.spec/plan.md`](.spec/plan.md) - How we're building it
-- [`.spec/tasks.md`](.spec/tasks.md) - Work breakdown
-- [`.spec/implementation.md`](.spec/implementation.md) - Implementation log
+Explore the `.specify/` directory to see how this project evolved from requirements to code:
+- [`.specify/memory/constitution.md`](.specify/memory/constitution.md) - Project principles (Nine Articles)
+- [`.specify/specs/000-initial-implementation/spec.md`](.specify/specs/000-initial-implementation/spec.md) - Feature specification
+- [`.specify/specs/000-initial-implementation/plan.md`](.specify/specs/000-initial-implementation/plan.md) - Architecture plan
+- [`.specify/specs/000-initial-implementation/tasks.md`](.specify/specs/000-initial-implementation/tasks.md) - Task breakdown
 
 ### 2. Multi-Agent AI Architecture
 AgentFlow showcases how AI agents can collaborate to automate complex development workflows:
@@ -37,7 +37,7 @@ AgentFlow showcases how AI agents can collaborate to automate complex developmen
 ### SDD Workflow (Spec Kit)
 - ✅ Four-phase gated workflow (Specify → Plan → Tasks → Implement)
 - ✅ Phase validation gates
-- ✅ Living specification documents in `.spec/`
+- ✅ Living specification documents in `.specify/`
 - ✅ Traceability from requirements to code
 
 ### Multi-Agent Architecture
@@ -308,19 +308,27 @@ mypy src/
 
 ```
 agentflow/
-├── .spec/               # SDD Specification Artifacts
-│   ├── specification.md # Requirements & user stories
-│   ├── plan.md         # Architecture & tech decisions
-│   ├── tasks.md        # Work breakdown
-│   └── implementation.md # Implementation log
+├── .specify/                    # Spec Kit SDD Artifacts
+│   ├── memory/
+│   │   ├── constitution.md      # Project principles (Nine Articles)
+│   │   └── project-context.md   # Technical context
+│   ├── templates/               # Spec/plan/task templates
+│   ├── scripts/                 # Automation scripts
+│   └── specs/
+│       └── 000-initial-impl/    # Feature specifications
+│           ├── spec.md
+│           ├── plan.md
+│           └── tasks.md
+├── .github/
+│   ├── prompts/                 # AI agent prompts
+│   └── workflows/               # CI/CD
 ├── src/
-│   ├── agents/          # Agent implementations
-│   ├── api/             # FastAPI application
-│   ├── core/            # Core functionality (phases, state, tools)
-│   └── utils/           # Utilities
-├── tests/               # Test suite
-├── docs/                # Documentation
-└── .github/workflows/   # CI/CD
+│   ├── agents/                  # Agent implementations
+│   ├── api/                     # FastAPI application
+│   ├── core/                    # Core (phases, state, tools)
+│   └── utils/                   # Utilities
+├── tests/                       # Test suite
+└── docs/                        # Documentation
 ```
 
 ## 🤝 Contributing

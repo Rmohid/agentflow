@@ -1,0 +1,44 @@
+{
+  "project_id": "demo-sdd-project",
+  "project_name": "Demo SDD Project",
+  "current_phase": "specify",
+  "phases": {
+    "specify": {
+      "phase": "specify",
+      "status": "in_progress",
+      "started_at": "2025-12-30T00:50:29.532271",
+      "completed_at": null,
+      "artifacts": {},
+      "validation_errors": []
+    },
+    "plan": {
+      "phase": "plan",
+      "status": "not_started",
+      "started_at": null,
+      "completed_at": null,
+      "artifacts": {},
+      "validation_errors": []
+    },
+    "tasks": {
+      "phase": "tasks",
+      "status": "not_started",
+      "started_at": null,
+      "completed_at": null,
+      "artifacts": {},
+      "validation_errors": []
+    },
+    "implement": {
+      "phase": "implement",
+      "status": "not_started",
+      "started_at": null,
+      "completed_at": null,
+      "artifacts": {},
+      "validation_errors": []
+    }
+  },
+  "specification": null,
+  "plan": null,
+  "tasks": [],
+  "created_at": "2025-12-30T00:50:29.532116",
+  "updated_at": "2025-12-30T00:50:29.532277"
+}

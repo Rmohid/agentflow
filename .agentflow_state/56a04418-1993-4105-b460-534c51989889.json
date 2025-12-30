@@ -1,0 +1,250 @@
+{
+  "workflow_id": "56a04418-1993-4105-b460-534c51989889",
+  "name": "code_review",
+  "status": "completed",
+  "created_at": "2025-12-30 00:20:15.997205",
+  "updated_at": "2025-12-30 00:20:17.068956",
+  "data": {
+    "workflow_id": "56a04418-1993-4105-b460-534c51989889",
+    "workflow_type": "code_review",
+    "agent_results": {
+      "code_analyzer": {
+        "agent_name": "code_analyzer",
+        "status": "success",
+        "data": {
+          "todos": [
+            {
+              "type": "TODO",
+              "file": "learning_workspace/src/main.py",
+              "line": "4",
+              "content": "# TODO: Implement proper error handling"
+            },
+            {
+              "type": "TODO",
+              "file": "learning_workspace/src/main.py",
+              "line": "15",
+              "content": "# TODO: Add input validation"
+            },
+            {
+              "type": "TODO",
+              "file": "learning_workspace/src/main.py",
+              "line": "31",
+              "content": "# TODO: Add main logic"
+            },
+            {
+              "type": "FIXME",
+              "file": "learning_workspace/src/main.py",
+              "line": "5",
+              "content": "# FIXME: This needs refactoring"
+            },
+            {
+              "type": "HACK",
+              "file": "learning_workspace/src/main.py",
+              "line": "25",
+              "content": "# HACK: Quick fix, needs proper implementation"
+            }
+          ],
+          "security_issues": [
+            {
+              "type": "security",
+              "description": "Hardcoded password",
+              "file": "learning_workspace/src/main.py",
+              "line": "9",
+              "content": "password = \"admin123\""
+            },
+            {
+              "type": "security",
+              "description": "Hardcoded API key",
+              "file": "learning_workspace/src/main.py",
+              "line": "22",
+              "content": "self.api_key = \"sk-1234567890\"  # Security issue: hardcoded API key"
+            }
+          ],
+          "code_stats": {
+            "total_files": 3,
+            "total_lines": 54,
+            "python_files": 3,
+            "test_files": 1
+          },
+          "summary": "Code Analysis Summary:\n- Total Python files: 3\n- Total lines of code: 54\n- Test files: 1\n- TODOs found: 5\n- Security issues: 2\n\nSecurity Issues:\n  - Hardcoded password in learning_workspace/src/main.py:9\n  - Hardcoded API key in learning_workspace/src/main.py:22"
+        },
+        "errors": [],
+        "warnings": [
+          "Found 2 potential security issues"
+        ],
+        "execution_time_ms": 40,
+        "timestamp": "2025-12-30 00:20:15.998366",
+        "metadata": {}
+      },
+      "builder": {
+        "agent_name": "builder",
+        "status": "success",
+        "data": {
+          "linting": {
+            "passed": false,
+            "tools": {
+              "ruff": {
+                "success": false,
+                "output": "W293 [*] Blank line contains whitespace\n  --> src/main.py:23:1\n   |\n21 |     def __init__(self):\n22 |         self.api_key = \"sk-1234567890\"  # Security issue: hardcoded API key\n23 |     \n   | ^^^^\n24 |     def process(self, items):\n25 |         # HACK: Quick fix, needs proper implementation\n   |\nhelp: Remove whitespace from blank line\n\nFound 1 error.\n[*] 1 fixable with the `--fix` option.\n"
+              },
+              "black": {
+                "success": false,
+                "output": ""
+              }
+            }
+          },
+          "testing": {
+            "passed": true,
+            "coverage": null,
+            "pytest": {
+              "success": true,
+              "output": "============================= test session starts ==============================\nplatform darwin -- Python 3.12.11, pytest-9.0.2, pluggy-1.6.0 -- /Users/rmohid/Stash/learning/agentflow/.venv/bin/python3.12\ncachedir: .pytest_cache\nrootdir: /Users/rmohid/Stash/learning/agentflow/learning_workspace\nconfigfile: pyproject.toml\nplugins: mock-3.15.1, anyio-4.12.0, asyncio-1.3.0, cov-7.0.0\nasyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\ncollecting ... collected 2 items\n\ntests/test_main.py::test_example PASSED                                  [ 50%]\ntests/test_main.py::test_format PASSED                                   [100%]\n\n============================== 2 passed in 0.00s ===============================\n"
+            }
+          },
+          "type_checking": {
+            "passed": false,
+            "mypy": {
+              "success": false,
+              "output": "src/utils.py:4: error: Missing type parameters for generic type \"dict\"  [type-arg]\nsrc/main.py:7: error: Function is missing a return type annotation  [no-untyped-def]\nsrc/main.py:14: error: Function is missing a type annotation  [no-untyped-def]\nsrc/main.py:21: error: Function is missing a return type annotation  [no-untyped-def]\nsrc/main.py:21: note: Use \"-> None\" if function does not return a value\nsrc/main.py:24: error: Function is missing a type annotation  [no-untyped-def]\nFound 5 errors in 2 files (checked 2 source files)\n"
+            }
+          },
+          "summary": "Build Summary:\n\u2717 Linting: FAILED\n  - ruff found issues\n  - black found issues\n\u2713 Testing: PASSED\n\u2717 Type Checking: FAILED"
+        },
+        "errors": [],
+        "warnings": [
+          "Linting checks failed",
+          "Type checking failed"
+        ],
+        "execution_time_ms": 1028,
+        "timestamp": "2025-12-30 00:20:16.039797",
+        "metadata": {}
+      }
+    },
+    "summary": "Code Review Summary:\n\nCode Analysis:\nCode Analysis Summary:\n- Total Python files: 3\n- Total lines of code: 54\n- Test files: 1\n- TODOs found: 5\n- Security issues: 2\n\nSecurity Issues:\n  - Hardcoded password in learning_workspace/src/main.py:9\n  - Hardcoded API key in learning_workspace/src/main.py:22\n\nBuild & Tests:\nBuild Summary:\n\u2717 Linting: FAILED\n  - ruff found issues\n  - black found issues\n\u2713 Testing: PASSED\n\u2717 Type Checking: FAILED\n\n\u2713 Overall: Code review PASSED - Ready for merge"
+  },
+  "agent_states": {
+    "code_analyzer": {
+      "status": "completed",
+      "result": {
+        "agent_name": "code_analyzer",
+        "status": "success",
+        "data": {
+          "todos": [
+            {
+              "type": "TODO",
+              "file": "learning_workspace/src/main.py",
+              "line": "4",
+              "content": "# TODO: Implement proper error handling"
+            },
+            {
+              "type": "TODO",
+              "file": "learning_workspace/src/main.py",
+              "line": "15",
+              "content": "# TODO: Add input validation"
+            },
+            {
+              "type": "TODO",
+              "file": "learning_workspace/src/main.py",
+              "line": "31",
+              "content": "# TODO: Add main logic"
+            },
+            {
+              "type": "FIXME",
+              "file": "learning_workspace/src/main.py",
+              "line": "5",
+              "content": "# FIXME: This needs refactoring"
+            },
+            {
+              "type": "HACK",
+              "file": "learning_workspace/src/main.py",
+              "line": "25",
+              "content": "# HACK: Quick fix, needs proper implementation"
+            }
+          ],
+          "security_issues": [
+            {
+              "type": "security",
+              "description": "Hardcoded password",
+              "file": "learning_workspace/src/main.py",
+              "line": "9",
+              "content": "password = \"admin123\""
+            },
+            {
+              "type": "security",
+              "description": "Hardcoded API key",
+              "file": "learning_workspace/src/main.py",
+              "line": "22",
+              "content": "self.api_key = \"sk-1234567890\"  # Security issue: hardcoded API key"
+            }
+          ],
+          "code_stats": {
+            "total_files": 3,
+            "total_lines": 54,
+            "python_files": 3,
+            "test_files": 1
+          },
+          "summary": "Code Analysis Summary:\n- Total Python files: 3\n- Total lines of code: 54\n- Test files: 1\n- TODOs found: 5\n- Security issues: 2\n\nSecurity Issues:\n  - Hardcoded password in learning_workspace/src/main.py:9\n  - Hardcoded API key in learning_workspace/src/main.py:22"
+        },
+        "errors": [],
+        "warnings": [
+          "Found 2 potential security issues"
+        ],
+        "execution_time_ms": 40,
+        "timestamp": "2025-12-30 00:20:15.998366",
+        "metadata": {}
+      }
+    },
+    "builder": {
+      "status": "completed",
+      "result": {
+        "agent_name": "builder",
+        "status": "success",
+        "data": {
+          "linting": {
+            "passed": false,
+            "tools": {
+              "ruff": {
+                "success": false,
+                "output": "W293 [*] Blank line contains whitespace\n  --> src/main.py:23:1\n   |\n21 |     def __init__(self):\n22 |         self.api_key = \"sk-1234567890\"  # Security issue: hardcoded API key\n23 |     \n   | ^^^^\n24 |     def process(self, items):\n25 |         # HACK: Quick fix, needs proper implementation\n   |\nhelp: Remove whitespace from blank line\n\nFound 1 error.\n[*] 1 fixable with the `--fix` option.\n"
+              },
+              "black": {
+                "success": false,
+                "output": ""
+              }
+            }
+          },
+          "testing": {
+            "passed": true,
+            "coverage": null,
+            "pytest": {
+              "success": true,
+              "output": "============================= test session starts ==============================\nplatform darwin -- Python 3.12.11, pytest-9.0.2, pluggy-1.6.0 -- /Users/rmohid/Stash/learning/agentflow/.venv/bin/python3.12\ncachedir: .pytest_cache\nrootdir: /Users/rmohid/Stash/learning/agentflow/learning_workspace\nconfigfile: pyproject.toml\nplugins: mock-3.15.1, anyio-4.12.0, asyncio-1.3.0, cov-7.0.0\nasyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\ncollecting ... collected 2 items\n\ntests/test_main.py::test_example PASSED                                  [ 50%]\ntests/test_main.py::test_format PASSED                                   [100%]\n\n============================== 2 passed in 0.00s ===============================\n"
+            }
+          },
+          "type_checking": {
+            "passed": false,
+            "mypy": {
+              "success": false,
+              "output": "src/utils.py:4: error: Missing type parameters for generic type \"dict\"  [type-arg]\nsrc/main.py:7: error: Function is missing a return type annotation  [no-untyped-def]\nsrc/main.py:14: error: Function is missing a type annotation  [no-untyped-def]\nsrc/main.py:21: error: Function is missing a return type annotation  [no-untyped-def]\nsrc/main.py:21: note: Use \"-> None\" if function does not return a value\nsrc/main.py:24: error: Function is missing a type annotation  [no-untyped-def]\nFound 5 errors in 2 files (checked 2 source files)\n"
+            }
+          },
+          "summary": "Build Summary:\n\u2717 Linting: FAILED\n  - ruff found issues\n  - black found issues\n\u2713 Testing: PASSED\n\u2717 Type Checking: FAILED"
+        },
+        "errors": [],
+        "warnings": [
+          "Linting checks failed",
+          "Type checking failed"
+        ],
+        "execution_time_ms": 1028,
+        "timestamp": "2025-12-30 00:20:16.039797",
+        "metadata": {}
+      }
+    }
+  },
+  "current_step": null,
+  "completed_steps": [],
+  "failed_steps": [],
+  "total_tasks": 0,
+  "completed_tasks": 0,
+  "failed_tasks": 0
+}

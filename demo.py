@@ -35,18 +35,18 @@ async def demo_sdd_phases():
         arrow = "→" if i < len(PHASE_ORDER) - 1 else ""
         print(f"  {i+1}. {phase.value.upper():10} {arrow}")
     
-    print("\n📂 Explore the .spec/ directory to see our specifications:\n")
+    print("\n📂 Explore the .specify/ directory (Spec Kit standard):\n")
     
     spec_files = [
-        (".spec/specification.md", "What we're building (requirements)"),
-        (".spec/plan.md", "How we're building it (architecture)"),
-        (".spec/tasks.md", "Work breakdown (actionable tasks)"),
-        (".spec/implementation.md", "Implementation log (decisions)"),
+        (".specify/memory/constitution.md", "Project principles (Nine Articles)"),
+        (".specify/specs/000-initial-implementation/spec.md", "Feature specification"),
+        (".specify/specs/000-initial-implementation/plan.md", "Architecture plan"),
+        (".specify/specs/000-initial-implementation/tasks.md", "Task breakdown"),
     ]
     
     for file_path, description in spec_files:
         exists = "✓" if Path(file_path).exists() else "✗"
-        print(f"  {exists} {file_path:30} - {description}")
+        print(f"  {exists} {file_path:50} - {description}")
     
     # Demo the phase manager
     print("\n🔄 Creating a demo SDD project...")
@@ -194,11 +194,12 @@ async def main():
         print("="*60)
         
         print("\n💡 Next steps:")
-        print("  1. Explore .spec/ directory to see SDD artifacts")
-        print("  2. Read docs/sdd-guide.md to learn about SDD")
-        print("  3. Start the API: uvicorn src.api.main:app --reload")
-        print("  4. Visit http://localhost:8000/docs for API docs")
-        print("  5. Try the phase API: POST /api/v1/project/create")
+        print("  1. Explore .specify/ directory to see Spec Kit artifacts")
+        print("  2. Read .specify/memory/constitution.md for project principles")
+        print("  3. Read docs/sdd-guide.md to learn about SDD")
+        print("  4. Start the API: uvicorn src.api.main:app --reload")
+        print("  5. Visit http://localhost:8000/docs for API docs")
+        print("  6. Try the phase API: POST /api/v1/project/create")
         
     except Exception as e:
         logger.error("Demo failed", error=str(e))
